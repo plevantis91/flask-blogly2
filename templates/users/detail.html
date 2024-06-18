@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ user.full_name }} {% endblock %}
+
+{% block content %}
+
+<h1>{{ user.full_name }}</h1>
+{% if user.image_url %}
+<div class="col-sm-2 col-6">
+  <img src="{{ user.image_url }}"
+       alt="{{ user.full_name }}"
+       class="img-fluid">
+</div>
+{% endif %}
+<div>
+
+    <form>
+       <button class="btn btn-primary btn-sm"
+              formaction="/users/{{ user.id }}/edit"
+              formmethod="GET">Edit
+      </button>
+      <button class="btn btn-danger btn-sm"
+              formaction="/users/{{ user.id }}/delete"
+              formmethod="POST">Delete
+      </button>
+      <button class="btn btn-primary btn-sm"
+              formaction="/posts/{{ user.id }}/form"
+              formmethod="GET">Add Post
+      </button>
+    </form>
+
+     {% if user.posts %}
+        <h3>Posts</h3>
+
+         <div>
+          <ul>
+                {% for post in user.posts%}
+                <li>
+                  <a href="/posts/{{post.id}}">{{post.title}}</a>
+                </li>
+                 {% endfor %}
+          </ul>
+        </div>
+     {% endif %}
+</div>
+
+{% endblock %}

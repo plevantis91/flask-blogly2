@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} New User Form {% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Create User</h2>
+    <form method="POST" class="form-horizontal">
+        <div class="form-group row">
+            <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="img_url" class="col-sm-2 col-form-label">Image URL</label>
+            <div class="col-sm-10">
+                <input type="url" class="form-control" id="img_url" name="img_url" placeholder="Insert image of user">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </form>
+
+ 
+{% endblock %}
