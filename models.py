@@ -4,13 +4,7 @@ import datetime
 
 db = SQLAlchemy()
 
-default_img = 'https://www.example.com/default.png'
-
-def connect_db(app):
-    """Connect to database"""
-    db.app = app
-    db.init_app(app)
-    
+default_img = "https://www.freeiconspng.com/uploads/icon-user-blue-symbol-people-person-generic--public-domain--21.png"
 class User(db.Model):
     """User"""
     __tablename__ = "users"
@@ -50,8 +44,30 @@ class Post(db.Model):
                         db.ForeignKey('users.id'), 
                         nullable=False)
     @property
-    def formatted_datetime(self):
-        return self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+    def readable_datetime(self):
+        return self.create_at.strftime("%a %b %-d %Y, %-I:%M %p")
 
+class Tag(db.Model):
+    """Tag"""
+    __tablename__ = "tags"
+    id = db.Column(db.Integer,
+                   primary_key = True,
+                   autoincrement=True)
+    name = db.Column(db.Text, nullable=False, unique=True)
 
+    posts = db.relationship("Post", secondary="posts_tags", backref="tags")
+
+class PostTag(db.Model):
+    """PostTag"""
+    __tablename__ = "posts_tags"
+    post_id = db.Column(db.Integer, 
+                        db.ForeignKey('posts.id'), 
+                        primary_key=True)
+    tag_id = db.Column(db.Integer, 
+                       db.ForeignKey('tags.id'), 
+                       primary_key=True)
     
+def connect_db(app):
+    """Connect to database"""
+    db.app = app
+    db.init_app(app)

@@ -18,9 +18,19 @@
             </div>
         </div>
       
+        {% if tags %}
+        <div>
+            {% for tag in tags %}
+            <input type="checkbox" id="tag" name="{{tag.id}}" value="{{ tag.id }}">
+            <label for="tag"tag_{{ tag.name }}>{{tag.name}}</label>
+            <br>
+            {% endfor %}
+        </div>
+        {% endif %}
         <div class="form-group row">
-            <div class="col-sm-10 offset-sm-2">
-                <button type="submit" class="btn btn-primary">Add</button>
+            <div class="col-sm-10 offset-sm-2">     
+                <a href="/users/{{ user.id }}" class="btn btn-outline-primary btn"> Cancel </a>
+                <button type="submit" class="btn btn-success">Add</button>
             </div>
         </div>
     </form>

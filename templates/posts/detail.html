@@ -3,14 +3,26 @@
 {% block title %} {{ post.title }} {% endblock %}
 
 {% block content %}
-<h2>Posts</h2>
+<h2>{{post.title}}</h2>
 <div>
-    <h3>{{ post.title }}</h3>
-    <p>By: {{ post.user.full_name }}</p>
     <p>{{ post.content}}</p>
+   
+    <p><i>By: {{ post.user.full_name }} on {{post.readable_datetime}}</i></p>
+
+    {% if post.tags %}
+    <p>
+      <b>Tags:</b>
+        {% for tag in post.tags %}
+            <a href="{{ url_for('tag_detail', tag_id=tag.id) }}">{{ tag.name }}</a>
+        {% endfor %}
+    {% endif %}
 </div>
 <div>
     <form>
+        <button class="btn btn-outline-primary btn-sm"
+                formaction="/users/{{ post.user_id }}"
+                formmethod="Cancel">Cancel
+        </button>
         <button class="btn btn-primary btn-sm"
                 formaction="/posts/{{ post.id }}/edit"
                 formmethod="GET">Edit
